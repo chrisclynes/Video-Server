@@ -27,9 +27,7 @@ const SignUp = () => {
         userName: userName,
         password: password
       }).then(res => {
-        this.setState({
-          redirect: true
-        });
+        setRedirect(true);
       }).catch(err => {
         console.log(err);
       });
