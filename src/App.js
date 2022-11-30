@@ -1,7 +1,7 @@
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
-import SignIn from './components/Form/SignIn';
-import SignUp from './components/Form/SignUp';
+import SignIn from './components/Form/signin/SignIn';
+import SignUp from './components/Form/signup/SignUp';
 
 function App() {
   return (
