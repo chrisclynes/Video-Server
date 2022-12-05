@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './Upload.css';
-import Navbar from '../Navbar/Navbar';
+// import Navbar from '../Navbar/Navbar';
 
 const Upload = () => {
   const [selectedVideos, setSelectedVideos] = useState(null);
@@ -50,15 +50,13 @@ const Upload = () => {
       data.append('file', selectedVideos[i]);
     }
     axios.post('http://127.0.0.1:3333/api/upload', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userTokenTime')).token
-      }
+      // headers: {
+      //   'Content-Type': 'application/json',
+      //   'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userTokenTime')).token
+      // }
     }, {
       onUploadProgress: ProgressEvent => {
-        this.setState({
-          loaded: (ProgressEvent.loaded / ProgressEvent.total * 100)
-        });
+        setLoaded(ProgressEvent.loaded / ProgressEvent.total * 100);
       }
     }).then(res => {
       toast.success('Upload Successful');
@@ -70,14 +68,13 @@ const Upload = () => {
   return (
     // if (!localStorage.getItem('userTokenTime')) return <Redirect to="/signIn" />
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="container mt-5">
           <div className="form-group">
             <ToastContainer />
           </div>
           <h4>Upload Video</h4>
           <hr className="my-4" />
-
           <form method="post" name="videoUpload" action="/api/upload" id="#" encType="multipart/form-data">
             <div className="form-group files">
               <label>Upload Your Videos Here</label>
