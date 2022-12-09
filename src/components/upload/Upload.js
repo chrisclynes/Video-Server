@@ -50,10 +50,10 @@ const Upload = () => {
       data.append('file', selectedVideos[i]);
     }
     axios.post('http://127.0.0.1:3000/api/upload', data, {
-      // headers: {
-      //   'Content-Type': 'application/json',
-      //   'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userTokenTime')).token
-      // }
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userTokenTime')).token
+      }
     }, {
       onUploadProgress: ProgressEvent => {
         setLoaded(ProgressEvent.loaded / ProgressEvent.total * 100);
@@ -61,7 +61,7 @@ const Upload = () => {
     }).then(res => {
       toast.success('Upload Successful');
     }).catch(err => {
-      toast.error(`Upload Fail with status: ${err.statusText}`);
+      toast.error(`Upload failed with status: ${err.response.statusText}`);
     });
   }
 
