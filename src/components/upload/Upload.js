@@ -49,7 +49,7 @@ const Upload = () => {
     for (let i = 0; i < selectedVideos.length; i++) {
       data.append('file', selectedVideos[i]);
     }
-    axios.post('http://127.0.0.1:3333/api/upload', data, {
+    axios.post('http://127.0.0.1:3000/api/upload', data, {
       // headers: {
       //   'Content-Type': 'application/json',
       //   'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userTokenTime')).token

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Form from '../form/Form';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import '../form/form.css';
 
@@ -9,6 +9,8 @@ const SignIn = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState(null);
+
+    const navigate = useNavigate();
 
     const userInputHandler = e => {
         setUserName(e.target.value);
@@ -21,25 +23,23 @@ const SignIn = () => {
     const onSubmitHandler = () => {
         if(!(password === '' || userName === '')) {
         //if user and password format are valid
-        console.log('test')
         axios.post('/api/signIn', {
             userName: userName,
             password: password
             }).then(res => {
                 console.log(res)
-            //     this.setState({
-            //         token: res.data.token
-            //     });
-            // const data = {
-            //     token: token,
-            //     time: new Date().getTime()
-            // }
-            // localStorage.setItem('userTokenTime', JSON.stringify(data));
-            // this.setState({
-            //     redirect: true
-            // });
+                setToken(res.data.token);
+            const data = {
+                token: res.data.token,
+                time: new Date().getTime()
+            }
+            localStorage.setItem('userTokenTime', JSON.stringify(data));
+            navigate("/upload");
             }).catch(err => {
-            console.log(err);
+                setUserName('');
+                setPassword('');
+                console.log(err);
+                alert('Invalid username or password');
             });
         } else {
             alert('Please enter valid user and password');
@@ -55,6 +55,7 @@ const SignIn = () => {
                     id="username"
                     className="form-control"
                     type="text"
+                    value={userName}
                     name="username"
                     placeholder="Username"
                     onChange={userInputHandler}
@@ -67,6 +68,7 @@ const SignIn = () => {
                     id="password"
                     className="form-control"
                     type="password"
+                    value={password}
                     name="password"
                     placeholder="********"
                     onChange={passwordInputHandler}
